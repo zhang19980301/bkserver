@@ -85,6 +85,7 @@ class UserService extends Service {
     }
     async loginUser() {
         let userstr = this.ctx.request.body.s
+        userstr = userstr.replace(" ", "+")
         let userlist = JSON.parse(Cryptos.decode(userstr))
         try {
             global[userlist.date]
