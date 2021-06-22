@@ -12,7 +12,11 @@
     "egg-cors": "^2.2.3",
     "egg-mysql": "^3.0.0",
     "egg-scripts": "^2.11.0",
+    "fs-walk": "^0.0.2",
     "jsonwebtoken": "^8.5.1",
+    "node-id3": "^0.2.3",
+    "nodejs-id3-reader": "^1.0.1",
+    "nodemailer": "^6.6.2",
     "svg-captcha": "^1.4.0"
   },
   "devDependencies": {

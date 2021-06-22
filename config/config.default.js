@@ -3,23 +3,22 @@
 'use strict';
 
 const os = require('os');
-const path=require('path')
-//获取本机ip
+// const path = require('path');
+// 获取本机ip
 function getIpAddress() {
-     /**os.networkInterfaces() 返回一个对象，该对象包含已分配了网络地址的网络接口 */
-  var interfaces = os.networkInterfaces();
-    for (var devName in interfaces) {
-      var iface = interfaces[devName];
-       for (var i = 0; i < iface.length; i++) {
-              var alias = iface[i];
-                if (alias.family === 'IPv4' && alias.address !== '127.0.0.1' && !alias.internal) {
-                  return alias.address;
-                }
-          }
-     }
+  // os.networkInterfaces() 返回一个对象，该对象包含已分配了网络地址的网络接口
+
+  const interfaces = os.networkInterfaces();
+  for (const devName in interfaces) {
+    const iface = interfaces[devName];
+    for (let i = 0; i < iface.length; i++) {
+      const alias = iface[i];
+      if (alias.family === 'IPv4' && alias.address !== '127.0.0.1' && !alias.internal) {
+        return alias.address;
+      }
+    }
+  }
 }
-
-
 
 
 /**
@@ -27,9 +26,9 @@ function getIpAddress() {
  */
 module.exports = appInfo => {
   /**
-   * built-in config
-   * @type {Egg.EggAppConfig}
-   **/
+	 * built-in config
+	 * @type {Egg.EggAppConfig}
+	 **/
   const config = exports = {};
 
   // use for cookie sign key, should change to your own and keep security
@@ -37,24 +36,24 @@ module.exports = appInfo => {
 
   // add your middleware config here
   config.gzip = {
-    threshold: 1024
-  }
-  //开放post请求
+    threshold: 1024,
+  };
+  // 开放post请求
   config.security = {
     csrf: {
       enable: false,
       ignoreJSON: true,
     },
-    domainWhiteList: ['*'], // []中放放出的白名单，*代表所有
+    domainWhiteList: [ '*' ], // []中放放出的白名单，*代表所有
   };
-  //使用的中间件  [开启哪个写哪个]
-  config.middleware = ['gzip'];
-  //配置服务器开的地址以及端口
+  // 使用的中间件  [开启哪个写哪个]
+  config.middleware = [ 'gzip' ];
+  // 配置服务器开的地址以及端口
   config.cluster = {
     listen: {
       path: '',
       port: 4010,
-      hostname:getIpAddress(),
+      hostname: getIpAddress(),
     },
   };
   config.mysql = {
