@@ -26,9 +26,7 @@ class UserService extends Service {
         };
         return returnlist;
       } catch (error) {
-
         let returnlist = await this.app.mysql.insert('users', obj);
-        // eslint-disable-next-line eqeqeq
         if (returnlist.insertId != '') {
           returnlist = {
             code: 200,
@@ -43,6 +41,7 @@ class UserService extends Service {
         return returnlist;
       }
     } catch (error) {
+      console.log(error)
       const returnlist = {
         code: 400,
         message: '请不要传递未经加密的参数',
@@ -123,6 +122,7 @@ class UserService extends Service {
           }
           return returnlist;
         } catch (err) {
+          console.log(err)
           returnlist = {
             code: 400,
             message: '该用户没有注册清先去注册',

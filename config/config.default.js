@@ -55,18 +55,22 @@ module.exports = appInfo => {
       port: 4010,
       hostname: getIpAddress(),
     },
+    https: {
+      key: './app/public/ssl/5443214_zzzsuqi.cn.key',
+      cert: './app/public/ssl/5443214_zzzsuqi.cn_public.crt'
+    }
   };
   config.mysql = {
     // 单数据库信息配置
     client: {
       // host
-      host: 'rm-2ze5ozl79go9nwgkzvo.mysql.rds.aliyuncs.com',
+      host: 'zzzsuqi.cn',
       // 端口号
       port: '3306',
       // 用户名
-      user: 'zhang',
+      user: 'root',
       // 密码
-      password: 'Zhang!123',
+      password: 'Zhang.123',
       // 数据库名
       database: 'bk',
     },
@@ -79,12 +83,6 @@ module.exports = appInfo => {
     prefix: '/',
     dir: process.cwd() + '/app/public', // 配置静态文件的地址
   };
-  // config.cluster={
-  //   https:{
-  //     key:path.join(appInfo.baseDir,'/app/public/ssl/4348127_www.suqi.ltd.key'),
-  //     cert:path.join(appInfo.baseDir,'/app/public/ssl/4348127_www.suqi.ltd_chain.crt')
-  //   }
-  // }
   // add your user config here
   const userConfig = {
     myAppName: 'bk',
