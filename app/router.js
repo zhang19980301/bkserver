@@ -14,9 +14,8 @@ module.exports = app => {
   // 修改用户
   router.post('/updateUser', controller.user.updateUser);
   // 返回图片验证码
-  // sendEmail
   router.get('/imgCode', controller.public.imgCode);
-  router.post('/sendEmail', controller.public.sendEmail);
+  // router.post('/sendEmail', controller.public.sendEmail);
   // 获取所有用户数据
   router.post('/getAllUsers', controller.user.getAllUsers);
   // 通过id获取用户信息
@@ -24,5 +23,6 @@ module.exports = app => {
   // 根据提供的字符串以及以及密钥对需要进行加密的字符串进行加密
   // router.post("/getEncode",controller.public.encode);
   router.post('/addArticle', controller.article.addArticle);
-  // router.get('/sendEmail', controller.article.getArticle);
+  // 发送邮箱验证码
+  router.post('/sendEmail', controller.public.sendEmail);
 };

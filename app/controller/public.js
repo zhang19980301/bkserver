@@ -6,6 +6,7 @@ const { Controller } = require('egg');
 const svgCaptcha = require('svg-captcha');
 const { Mail } = require('../public/js/email');
 const { Md5s } = require('../public/js/crypto')
+const { Cryptos } = require('../public/js/crypto-web')
 class PublicController extends Controller {
   async imgCode() {
     const { ctx } = this;
@@ -45,7 +46,8 @@ class PublicController extends Controller {
   async sendEmail() {
     const { ctx } = this;
     try {
-      const obj = await Mail.sendEmail('欢迎注册博客', '381344750@qq.com', ctx.request.body.date);
+      let email = Cryptos.decode(ctx.request.body.email)
+      const obj = await Mail.sendEmail('欢迎注册博客', email);
       if (obj.response.indexOf('OK')) {
         ctx.body = { code: 200, message: '发送成功' };
       } else {

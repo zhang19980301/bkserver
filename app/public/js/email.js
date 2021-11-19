@@ -4,7 +4,7 @@
 const nodemailer = require('nodemailer');
 
 class Mail {
-  sendEmail(title, toUserEmail, date) {
+  sendEmail(title, toUserEmail) {
     // 创建Nodemailer传输器 SMTP 或者 其他 运输机制
     const smtpTransport = nodemailer.createTransport({
       service: '163',
@@ -22,9 +22,9 @@ class Mail {
       const num = (Math.random() * codeChars.length);
       emailCode += codeChars[parseInt(num)];
     }
-    global[date] = emailCode;
+    global[toUserEmail] = emailCode;
     setTimeout(() => {
-      delete global[date];
+      delete global[toUserEmail];
     }, 1000 * 60 * 5);
     // 定义transport对象并发送邮件
     try {
