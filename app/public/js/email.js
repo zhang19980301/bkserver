@@ -22,6 +22,7 @@ class Mail {
       const num = (Math.random() * codeChars.length);
       emailCode += codeChars[parseInt(num)];
     }
+    // 在全局变量中添加 当前注册者的邮箱为键值的邮箱验证码
     global[toUserEmail] = emailCode;
     setTimeout(() => {
       delete global[toUserEmail];

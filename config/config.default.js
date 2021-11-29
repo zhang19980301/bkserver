@@ -53,7 +53,7 @@ module.exports = appInfo => {
     listen: {
       path: '',
       port: 4010,
-      hostname: getIpAddress(),
+      hostname: "127.0.0.1",
     },
     https: {
       key: './app/public/ssl/5443214_zzzsuqi.cn.key',
@@ -79,6 +79,14 @@ module.exports = appInfo => {
     // 是否加载到 agent 上，默认关闭
     agent: false,
   };
+  config.redis = {
+    client: {
+      port: 6379,
+      host: 'zzzsuqi.cn',
+      password: '',
+      db: 0
+    }
+  }
   config.static = { // 必须把public移出项目，否则在pkg的包中egg的static中间件会有对public操作（确保文件夹），会有抛错
     prefix: '/',
     dir: process.cwd() + '/app/public', // 配置静态文件的地址
