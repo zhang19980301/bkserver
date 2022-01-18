@@ -53,7 +53,7 @@ module.exports = appInfo => {
     listen: {
       path: '',
       port: 4010,
-      hostname: "127.0.0.1",
+      hostname: getIpAddress(),
     },
     https: {
       key: './app/public/ssl/5443214_zzzsuqi.cn.key',

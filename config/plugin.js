@@ -11,7 +11,7 @@ module.exports = {
     package: 'egg-mysql',
   },
   redis: {
-    enable: true,
+    enable: false,
     package: 'egg-redis',
   }
 };
