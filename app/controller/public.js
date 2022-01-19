@@ -27,13 +27,15 @@ class PublicController extends Controller {
       if (ctx.query.date == '' || ctx.query.date == ' ') {
         ctx.body = { code: 200, message: '请求必填参数（date）不能为空' };
       } else {
-        global[ctx.query.date] = cap.text.toLowerCase();
+        await this.app.redis.set(ctx.query.date, cap.text.toLowerCase())
+        // global[ctx.query.date] = cap.text.toLowerCase();
         // 给图片验证码设置一个过期时间 --设置为5分钟过期
         // 把存在全局中的验证码删掉
-        setInterval(() => {
-          delete global[ctx.query.date];
+        setInterval(async () => {
+          await this.app.redis.del(ctx.query.date)
+          // delete global[ctx.query.date];
         }, 5 * 60 * 1000);
-        ctx.response.type = 'image/svg+xml'; // 知道你个返回的类型
+        ctx.response.type = 'image/svg+xml'; // 设置返回头的类型
         ctx.body = cap.data; // 返回一张图片
       }
     } catch (err) {
