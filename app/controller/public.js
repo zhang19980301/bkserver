@@ -60,54 +60,59 @@ class PublicController extends Controller {
       ctx.body = { code: 500, message: '缺少必填参数' };
     }
   }
-  async getAllMusic(){
+  async getAllMusic() {
     const { ctx } = this
-    function getfile(){
+    function getfile() {
       return new Promise((success, failed) => {
-        fs.readdir(process.cwd()+'/app/public/music/', 'utf8' ,(err, res) => {
-          if(err){
+        fs.readdir(process.cwd() + '/app/public/music/', 'utf8', (err, res) => {
+          if (err) {
             failed(err)
-          }else{
+          } else {
             success(res)
+          }
+        })
+      })
+    }
+    async function file(item) {
+      return new Promise((success, failed) => {
+        jsmediatags.read(process.cwd() + `/app/public/music/${item}`, {
+          onSuccess: (tag) => {
+            //文件内包含的专辑封面是base64格式的图片，获取后转成jpeg格式缓存到cache文件夹内。
+            success({
+              title: item,
+              name: tag.tags.title,
+              artist: tag.tags.artist,
+              album: tag.tags.album,
+              picture: tag.tags.picture.data
+            })
+          },
+          onError: (error) => {
+            failed(error)
           }
         })
       })
     }
     try {
       // console.log(process.cwd()+`/app/public/music/${item}`)
-      let arr = await getfile()
-      function info(arr){
-        let obj = []
-        return new Promise((success, error) => {
-          arr.forEach(item => {
-            jsmediatags.read(process.cwd()+`/app/public/music/${item}`, {
-              onSuccess: (tag) => {
-                //文件内包含的专辑封面是base64格式的图片，获取后转成jpeg格式缓存到cache文件夹内。
-                obj.push({
-                  title: item,
-                  name: tag.tags.title,
-                  artist: tag.tags.artist,
-                  album: tag.tags.album,
-                })
-                success(obj)
-              },
-              onError: (error) => {
-                console.log(error)
-              }
-            })
-            
-          })
-        })
+      let fileNameArr = await getfile()
+      let obj = []
+      async function info(item) {
+        obj.push(await file(item))
+        return obj
       }
-      ctx.body = { code: 200, message: '成功', data: await info(arr) };
+      for (let i = 0; i < fileNameArr.length; i++) {
+        const element = fileNameArr[i];
+        await info(element)
+      }
+      ctx.body = { code: 200, message: '成功', data: obj };
     } catch (error) {
       ctx.body = { code: 500, message: '读取文件失败' };
     }
   }
-  async music(){
+  async music() {
     const { ctx } = this;
-    fs.readFile(process.cwd()+`/app/public/music/${ctx.request.url.split('/')[2]}`,(err, res) => {
-      
+    fs.readFile(process.cwd() + `/app/public/music/${ctx.request.url.split('/')[2]}`, (err, res) => {
+
     })
   }
 }

@@ -90,9 +90,11 @@ class UserService extends Service {
     userstr = userstr.replace(' ', '+');
     const userlist = JSON.parse(Cryptos.decode(userstr));
     try {
-      global[userlist.date];
+      let yancode = await this.app.redis.get(userlist.date);
+      console.log(yancode)
+      // global[userlist.date];
       // eslint-disable-next-line eqeqeq
-      if (global[userlist.date] == userlist.imgCode) {
+      if (yancode == userlist.imgCode) {
         let returnlist = await this.app.mysql.get('users', { loginName: userlist.username });
         try {
           returnlist.id;
@@ -103,7 +105,7 @@ class UserService extends Service {
             const token = jwt.sign(content, secretOrPrivateKey, {
               expiresIn: 1000 * 60 * 1, // 1小时过期
             });
-            delete global[userlist.date]; // 验证码使用完直接删除  2清理缓存    1防止5分钟内重复使用--在生成页已经做过处理
+            await this.app.redis.del(userlist.date) // 验证码使用完直接删除  2清理缓存    1防止5分钟内重复使用--在生成页已经做过处理
             returnlist = {
               code: 200,
               message: '登录成功',

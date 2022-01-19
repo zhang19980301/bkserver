@@ -28,5 +28,5 @@ module.exports = app => {
   // 获取所有文件夹中的音乐列表
   router.post("/getAllMusic", controller.public.getAllMusic)
   // 劫持所有/music的请求
-  router.get("/musics/*", controller.public.music)
+  // router.get("/musics/*", controller.public.music)
 };
