@@ -64,13 +64,13 @@ module.exports = appInfo => {
     // 单数据库信息配置
     client: {
       // host
-      host: 'zzzsuqi.cn',
+      host: 'localhost',
       // 端口号
       port: '3306',
       // 用户名
       user: 'root',
       // 密码
-      password: 'Zhang.123',
+      password: 'Zhang.123!',
       // 数据库名
       database: 'bk',
     },
@@ -82,8 +82,8 @@ module.exports = appInfo => {
   config.redis = {
     client: {
       port: 6379,
-      host: 'zzzsuqi.cn',
-      password: '',
+      host: 'localhost',
+      password: 'Zhang.123!',
       db: 0
     }
   }
