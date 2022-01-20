@@ -12,3 +12,5 @@ run/
 *.un~
 typings/
 .nyc_output/
+vs/
+config/config.default.js
