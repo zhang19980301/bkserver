@@ -31,7 +31,7 @@ class HomeController extends Controller {
     const { ctx } = this;
     const responce = await this.service.users.getAllUsers();
     // console.log(responce)
-    ctx.body = { code: 200, message: '请求成功', obj: responce.returnlist, totle: responce.length };
+    ctx.body = { code: 200, message: '请求成功', data: responce.returnlist, totle: responce.length };
   }
   async getuserByid() {
     const { ctx } = this;

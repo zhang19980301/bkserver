@@ -91,9 +91,6 @@ class UserService extends Service {
     const userlist = JSON.parse(Cryptos.decode(userstr));
     try {
       let yancode = await this.app.redis.get(userlist.date);
-      console.log(yancode)
-      // global[userlist.date];
-      // eslint-disable-next-line eqeqeq
       if (yancode == userlist.imgCode) {
         let returnlist = await this.app.mysql.get('users', { loginName: userlist.username });
         try {
@@ -204,11 +201,9 @@ class UserService extends Service {
     return returnlist;
   }
   async getAllUsers() {
-
-    // let id=this.ctx.request.body.id
     const pagelist = this.ctx.request.body.pagelist; // 每页条数
     const page = this.ctx.request.body.pageNo; // 当前查询页
-    const sql = `select id,nicName,loginName,status from users   limit ${((page - 1) * pagelist)},${pagelist}`;
+    const sql = `select id,nicName,loginName,status from users limit ${((page - 1) * pagelist)},${pagelist}`;
     const s = await this.app.mysql.select('users');
     // let returnlist = await this.app.mysql.select("users",{
     //     columns:['id','nicName','loginName','status'],

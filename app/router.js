@@ -15,7 +15,6 @@ module.exports = app => {
   router.post('/updateUser', controller.user.updateUser);
   // 返回图片验证码
   router.get('/imgCode', controller.public.imgCode);
-  // router.post('/sendEmail', controller.public.sendEmail);
   // 获取所有用户数据
   router.post('/getAllUsers', controller.user.getAllUsers);
   // 通过id获取用户信息
